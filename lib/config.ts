@@ -87,6 +87,25 @@ export const defaultPageCoverPosition: number = getSiteConfig(
   0.5
 )
 
+// Optional utteranc.es comments via GitHub issue comments
+export const utterancesGitHubRepo: string | null = getSiteConfig(
+  'utterancesGitHubRepo',
+  null
+)
+
+export const cusdisHost: string | null = getSiteConfig(
+  'cusdisHost',
+  null
+)
+
+export const cusdisAppId: string | null = getSiteConfig(
+  'cusdisAppId',
+  null
+)
+
+// Optional image CDN host to proxy all image requests through
+export const imageCDNHost: string | null = getSiteConfig('imageCDNHost', null)
+
 // Optional whether or not to enable support for LQIP preview images
 export const isPreviewImageSupportEnabled: boolean = getSiteConfig(
   'isPreviewImageSupportEnabled',

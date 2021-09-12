@@ -31,6 +31,28 @@ import styles from './styles.module.css'
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
+import { PageSocial } from './PageSocial'
+// import { GitHubShareButton } from './GitHubShareButton'
+// import { ReactUtterances } from './ReactUtterances'
+
+import { ReactCusdis } from 'react-cusdis'
+import { getPageTweet } from '@/lib/get-page-tweet'
+import { PageActions } from './PageActions'
+
+// const Code = dynamic(() =>
+//   import('react-notion-x').then((notion) => notion.Code)
+// )
+//
+// const Collection = dynamic(() =>
+//   import('react-notion-x').then((notion) => notion.Collection)
+// )
+//
+// const CollectionRow = dynamic(
+//   () => import('react-notion-x').then((notion) => notion.CollectionRow),
+//   {
+//     ssr: false
+//   }
+// )
 
 const Code = dynamic(() =>
   import('react-notion-x/build/third-party/code').then(async (m) => {
@@ -193,7 +215,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const showTableOfContents = !!isBlogPost
   const minTableOfContentsItems = 3
 
-  const pageAside = React.useMemo(
+  let pageAside = React.useMemo(
     () => (
       <PageAside block={block} recordMap={recordMap} isBlogPost={isBlogPost} />
     ),
@@ -242,6 +264,43 @@ export const NotionPage: React.FC<types.PageProps> = ({
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
 
+  // only display comments and page actions on blog post pages
+  if (isBlogPost) {
+    // if (config.utterancesGitHubRepo) {
+    //   comments = (
+    //     <ReactUtterances
+    //       repo={config.utterancesGitHubRepo}
+    //       issueMap='issue-term'
+    //       issueTerm='title'
+    //       theme={darkMode.value ? 'photon-dark' : 'github-light'}
+    //     />
+    //   )
+    // }
+
+    // if (config.cusdisHost && config.cusdisAppId) {
+    //   comments = (
+    //     <div className={styles.comments}>
+    //       <ReactCusdis
+    //         attrs={{
+    //           host: config.cusdisHost,
+    //           appId: config.cusdisAppId,
+    //           pageId: pageId,
+    //           pageTitle: title,
+    //           pageUrl: `/${pageId}`
+    //         }}
+    //       />
+    //     </div>
+    //   )
+    // }
+
+    const tweet = getPageTweet(block, recordMap)
+    if (tweet) {
+      pageAside = <PageActions tweet={tweet} />
+    }
+  } else {
+    pageAside = <PageSocial />
+  }
+
   return (
     <>
       <PageHead
@@ -282,6 +341,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
       />
 
       <GitHubShareButton />
+      {/* <GitHubShareButton /> */}
     </>
   )
 }

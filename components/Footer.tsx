@@ -25,6 +25,8 @@ export const FooterImpl: React.FC = () => {
     (e) => {
       e.preventDefault()
       toggleDarkMode()
+
+
     },
     [toggleDarkMode]
   )
