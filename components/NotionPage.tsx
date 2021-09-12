@@ -32,10 +32,12 @@ import { PageHead } from './PageHead'
 import { PageActions } from './PageActions'
 import { Footer } from './Footer'
 import { PageSocial } from './PageSocial'
-import { GitHubShareButton } from './GitHubShareButton'
+// import { GitHubShareButton } from './GitHubShareButton'
 import { ReactUtterances } from './ReactUtterances'
 
 import styles from './styles.module.css'
+
+import { ReactCusdis } from 'react-cusdis'
 
 // const Code = dynamic(() =>
 //   import('react-notion-x').then((notion) => notion.Code)
@@ -149,6 +151,23 @@ export const NotionPage: React.FC<types.PageProps> = ({
         />
       )
     }
+
+    if (config.cusdisHost && config.cusdisAppId) {
+      comments = (
+        <div className={styles.comments}>
+          <ReactCusdis
+            attrs={{
+              host: config.cusdisHost,
+              appId: config.cusdisAppId,
+              pageId: pageId,
+              pageTitle: title,
+              pageUrl: `/${pageId}`
+            }}
+          />
+        </div>
+      )
+    }
+
 
     const tweet = getPageTweet(block, recordMap)
     if (tweet) {
@@ -276,7 +295,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
         }
       />
 
-      <GitHubShareButton />
+      {/* <GitHubShareButton /> */}
     </TwitterContextProvider>
   )
 }

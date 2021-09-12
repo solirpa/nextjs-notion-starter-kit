@@ -76,6 +76,16 @@ export const utterancesGitHubRepo: string | null = getSiteConfig(
   null
 )
 
+export const cusdisHost: string | null = getSiteConfig(
+  'cusdisHost',
+  null
+)
+
+export const cusdisAppId: string | null = getSiteConfig(
+  'cusdisAppId',
+  null
+)
+
 // Optional image CDN host to proxy all image requests through
 export const imageCDNHost: string | null = getSiteConfig('imageCDNHost', null)
 
